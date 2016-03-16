@@ -218,9 +218,10 @@
   "Read all forms from *in* until an EOF is reached. Throws an exception on incomplete forms."
   []
   (lazy-seq
-   (let [form (read *in* false ::EOF)]
-     (when-not (= ::EOF form)
-       (cons form (read-seq))))))
+    (let [eof (Object.)
+          form (read *in* false eof)]
+      (when-not (= eof form)
+        (cons form (read-seq))))))
 
 (defmacro let-later
   "Behaves like let, but bindings which have :delay metadata on them are
