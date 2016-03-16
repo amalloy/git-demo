@@ -2,8 +2,7 @@
   (:use [clojure.walk :only [walk]]
         [flatland.useful.fn :only [decorate ignoring-nils fix]]
         [clojure.tools.macro :only [symbol-macrolet]])
-  (:import (clojure.lang IDeref ISeq IPersistentMap IPersistentSet IPersistentCollection))
-  (:use flatland.useful.debug))
+  (:import (clojure.lang IDeref ISeq IPersistentMap IPersistentSet IPersistentCollection)))
 
 (defn invoke
   "Like clojure.core/apply, but doesn't expand/splice the last argument."
