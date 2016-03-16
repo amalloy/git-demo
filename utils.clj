@@ -135,7 +135,8 @@
 (defn update-peek
   "Update the element in stack that would be returned by peek, returning a new stack."
   [stack f & args]
-  (conj (pop stack)
+  (conj (doto (pop stack)
+          prn)
         (doto (apply f (peek stack) args)
           (prn))))
 
