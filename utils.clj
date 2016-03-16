@@ -28,8 +28,9 @@
   Like prog1 in common lisp, or a (do) that returns the first form."
   [value & forms]
   `(let [value# ~value]
-     ~@forms
-     value#))
+     (do
+       ~@forms
+       value#)))
 
 (letfn [(no-arg-nil [f]
           (fn
@@ -143,7 +144,7 @@
   [adjustment bindings & body]
   (let [bindings (vec bindings)]
     `(let [~bindings (map ~adjustment ~bindings)]
-       ~@body)))
+       (do ~@body))))
 
 (defn queue
   "Create an empty persistent queue or a persistent queue from a sequence."
@@ -211,7 +212,7 @@
    nothing about threads), you will of course lose some of the benefit of having
    thread-local objects."
   [& body]
-  `(thread-local* (fn [] ~@body)))
+  `(thread-local* (fn [] (do ~@body))))
 
 (defn read-seq
   "Read all forms from *in* until an EOF is reached. Throws an exception on incomplete forms."
@@ -285,5 +286,5 @@
    the code in an implicit do."
   [& body]
   `(let [start# (System/nanoTime)
-         ret# ~(cons 'do body)]
+         ret# (do ~@body)]
      [ret# (/ (double (- (System/nanoTime) start#)) 1000000.0)]))
