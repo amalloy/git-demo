@@ -136,7 +136,8 @@
   "Update the element in stack that would be returned by peek, returning a new stack."
   [stack f & args]
   (conj (pop stack)
-        (apply f (peek stack) args)))
+        (doto (apply f (peek stack) args)
+          (prn))))
 
 (defmacro with-adjustments
   "Create new bindings for binding args, by applying adjustment
