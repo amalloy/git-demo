@@ -135,10 +135,11 @@
 (defn update-peek
   "Update the element in stack that would be returned by peek, returning a new stack."
   [stack f & args]
-  (conj (doto (pop stack)
-          prn)
-        (doto (apply f (peek stack) args)
-          (prn))))
+  (let [change (fn [x] (apply f x args))]
+    (conj (doto (pop stack)
+            prn)
+          (doto (change (peek stack))
+            (prn)))))
 
 (defmacro with-adjustments
   "Create new bindings for binding args, by applying adjustment
