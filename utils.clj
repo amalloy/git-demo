@@ -96,7 +96,8 @@
 
   ISeq
   (adjoin-onto [this other]
-    (concat this other))
+    (with-meta (concat this other)
+      (meta this)))
 
   IPersistentCollection
   (adjoin-onto [this other]
