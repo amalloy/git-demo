@@ -290,3 +290,8 @@
   `(let [start# (System/nanoTime)
          ret# (do ~@body)]
      [ret# (/ (double (- (System/nanoTime) start#)) 1000000.0)]))
+
+(defmacro ignore-errors [& body]
+  `(try
+     (do ~@body)
+     (catch Exception e# nil)))
